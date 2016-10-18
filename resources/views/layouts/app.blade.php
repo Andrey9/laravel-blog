@@ -12,13 +12,16 @@
 
     <!-- Styles -->
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
-
+    <style>
+        body{ overflow-x: hidden;}
+    </style>
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    @yield('script')
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -80,9 +83,9 @@
     </nav>
 
     @yield('content')
-
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+
 </body>
 </html>

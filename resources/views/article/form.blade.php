@@ -7,8 +7,13 @@
     {!! Form::text('excerpt', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('body', 'Title:') !!}
-    {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+    {!! Form::label('body', 'Body:') !!}
+    {!! Form::textarea('body', null, ['class' => 'form-control','id'=>'editor1']) !!}
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'editor1' );
+    </script>
 </div>
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
@@ -17,3 +22,7 @@
 <div class="form-group">
     {!! Form::submit($submitButtonText,['class'=>'btn btn-success form-control']) !!}
 </div>
+
+@section('script')
+    <script src="{{URL::asset('vendor/ckeditor/ckeditor.js')}}"></script>
+@stop

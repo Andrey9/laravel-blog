@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use App\Article;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+    /**
+     * Set middleware for article
+     *
+     * ArticleController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index','show');
+    }
+
     /**
      * Show all articles
      *
@@ -30,8 +41,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::findOrFail($id);
-        //dd($article);
+        $article = Article::with('comments')->findOrFail($id);
         return view('article.show')->with(['article' => $article]);
     }
 
@@ -53,9 +63,8 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $req = $request->all();
-        $req['user_id'] = '1';
-        Article::create($req);
+        $article = new Article($request->all());
+        Auth::user()->articles()->save($article);
         return redirect('/articles');
     }
 
@@ -68,6 +77,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::findOrFail($id);
+        $this->authorize('manage',$article);
         //dd($article);
         return view('article.edit')->with(['article' => $article]);
     }
@@ -82,6 +92,20 @@ class ArticleController extends Controller
     public function update(Article $article, ArticleRequest $request)
     {
         $article->update($request->all());
+        return redirect('/articles/'.$article->id);
+    }
+
+    /**
+     * Delete article
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        $article = Article::findOrFail($id);
+        $this->authorize('manage',$article);
+        Article::destroy($id);
         return redirect('/articles');
     }
 }

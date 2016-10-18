@@ -14,6 +14,10 @@
 
 Auth::routes();
 
+Route::get('/', function(){
+   return redirect('/articles');
+});
 Route::get('/home', 'HomeController@index');
 
-Route::resource('/','ArticleController');
+Route::resource('/articles','ArticleController');
+Route::resource('/comment','CommentController');
