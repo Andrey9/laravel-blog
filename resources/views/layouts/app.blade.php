@@ -12,9 +12,8 @@
 
     <!-- Styles -->
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <style>
-        body{ overflow-x: hidden;}
-    </style>
+    <link rel="stylesheet" href="{{URL::asset('css/style.css')}}">
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -81,8 +80,10 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        @yield('content')
+    </div>
 
-    @yield('content')
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>

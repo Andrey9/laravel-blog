@@ -1,0 +1,4 @@
+body{ overflow-x: hidden;}
+
+.button{ border: none; background: none; }
+.button:hover { color: #0000cc;}
