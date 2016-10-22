@@ -19,5 +19,5 @@ Route::get('/', function(){
 });
 Route::get('/home', 'HomeController@index');
 
-Route::resource('/articles','ArticleController');
-Route::resource('/comment','CommentController');
+Route::resource('/articles',    'ArticleController');
+Route::resource('/comment',     'CommentController');
